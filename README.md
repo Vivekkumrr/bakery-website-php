@@ -7,6 +7,7 @@ A Complete Dynamic and Fully Functional E-commerce Website using PHP prrogrammin
 2. CSS3
 3. Core/Procedural PHP programming language
 4. MySQL Relational Database
+5. XAMPP/ Laragon Server for MySQL & PHP
 
 
 # 🧰 Features
