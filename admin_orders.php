@@ -1,17 +1,25 @@
 <?php
 include ('./inc/conn.php');
 
-if (isset($_GET['delete'])) {
-    $orders_id = $_GET['delete'];
-    mysqli_query($conn, "DELETE FROM `orders` WHERE id = '$orders_id'");
-
-    header('location:admin_message.php');
-}
-
-if (isset($_POST['update_order'])) {
+if(isset($_POST['update_order'])) {
     $order_id = $_POST['order_id'];
-    $update_payment=$_POST['update_payment'];
-    mysqli_query($conn, "UPDATE `orders` SET payment_status ='complete' WHERE id='$order_id'");
+    $update_payment = $_POST['update_payment'];
+    
+    // Update the payment status in the database
+    $update_query = mysqli_query($conn, "UPDATE `orders` SET payment_status = '$update_payment' WHERE id = '$order_id'");
+    
+    if($update_query) {
+        // Refresh the page to show updated status
+        header('location: admin_orders.php');
+    } else {
+        echo "<script>alert('Failed to update payment status!');</script>";
+    }
+}
+// Handle delete functionality
+if(isset($_GET['delete'])) {
+    $delete_id = $_GET['delete'];
+    mysqli_query($conn, "DELETE FROM `orders` WHERE id = '$delete_id'");
+    header('location: admin_orders.php');
 }
 ?>
 
@@ -54,9 +62,9 @@ if (isset($_POST['update_order'])) {
                                 <option value="Pending">Pending</option>
                                 <option value="Complete">Complete</option>
                             </select>
-                            <input type="submit" name="update_order" value="update payment" class="btn">
+                            <input type="submit" name="update_order" value="update_payment" class="btn">
                         </form>
-                        <a href="admin_orders.php?delete <?php echo $fetch_orders['id']; ?>;"
+                        <a href="admin_orders.php?delete=<?php echo $fetch_orders['id'] ;?>"
                             onclick="return confirm('delete this message');" class="delete">delete</a>
                     </div>
                     <?php
