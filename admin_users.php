@@ -3,7 +3,7 @@ include ('./inc/conn.php');
 
 if (isset($_GET['delete'])) {
     $delete_id = $_GET['delete'];
-    mysqli_query($conn, "DELETE FROM `users` WHERE id = '$delete_id'");
+    mysqli_query($conn, "DELETE FROM `users` WHERE user_id = '$delete_id'");
     $message[] = "user removed from website";
     header('location:admin_users.php');
 }
@@ -41,8 +41,8 @@ if (isset($_GET['delete'])) {
                         }
                         ; ?>">
                                 <?php echo $fetch_users['user_type']; ?></span></p>
-                        <a href="admin_users.php?delete=<?php echo $fetch_users['user_id']; ?>;"
-                            onclick="return confirm('Delete this message');" class="delete">Delete</a>
+                        <a href="admin_users.php?delete=<?php echo $fetch_users['user_id']; ?>"
+                            onclick="return confirm('Delete this User');" class="delete">Delete</a>
                     </div>
                     <?php
                 }
