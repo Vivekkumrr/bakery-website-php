@@ -2,15 +2,8 @@
 include('./inc/conn.php');
 session_start();
 
-if (!isset($_SESSION['admin_name']) || !isset($_SESSION['admin_email']) || !isset($_SESSION['admin_password'])) {
-    $row = array(
-        'name' => 'ram', // Replace with actual admin name from the database
-        'email' => 'ram@gmail.com', // Replace with actual admin email from the database
-        'password' => '1234'
-    );
-    $_SESSION['admin_name'] = $row['name'];
-    $_SESSION['admin_email'] = $row['email'];
-    $_SESSION['admin_password'] = $row['password'];
+if(isset($_SESSION['user_id'])) {
+    $user_id = $_SESSION['user_id'];
 }
 if (isset($_POST['logout'])) {
     session_destroy();
@@ -25,6 +18,7 @@ if (isset($_POST['logout'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="main.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="css/adminpanel.css">
     <title>Admin DashBoard</title>
 </head>
 
